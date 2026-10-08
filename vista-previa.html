@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Tu Marketplace] | Compra, vende y contrata</title>
+<meta name="theme-color" content="#041a1e">
+<meta name="description" content="Publica tu servicio o producto y llega a personas de tu comuna.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* Estilos del marketplace. Colores y modo oscuro se cambian en :root */
+:root{--bg:#f4f5f8;--sf:#fff;--ink:#101828;--mu:#566074;--ln:#dde1ea;--br:#3b36d9;--bi:#fff;--hl:#ffd23f;--hi:#2b2100;--ok:#14804a;--wn:#a15c00;--er:#b42318}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1118;--sf:#171b26;--ink:#eef0f6;--mu:#9aa3b8;--ln:#2a3042;--br:#8f8bff;--bi:#10102b;--ok:#4cd68c;--wn:#ffb84d;--er:#ff7a6e}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 "Public Sans","Segoe UI",system-ui,sans-serif}
+h1,h2,h3{font-family:Sora,"Segoe UI",system-ui,sans-serif;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800}h2{font-size:1.4rem}h3{font-size:1.05rem}
+a{color:inherit}p{margin:0 0 1em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+header{background:var(--sf);border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;gap:18px;height:58px}
+.logo{font:800 1.2rem Sora,sans-serif;text-decoration:none;color:var(--br);margin-right:auto}
+nav a{text-decoration:none;color:var(--mu);font-weight:600;margin-left:14px;font-size:.95rem}
+nav a.on,nav a:hover{color:var(--ink)}
+@media(max-width:620px){nav a:not(.btn){display:none}}
+.btn{display:inline-block;border:0;border-radius:8px;padding:10px 18px;font:700 .95rem Sora,sans-serif;background:var(--br);color:var(--bi);cursor:pointer;text-decoration:none}
+.btn.hl{background:var(--hl);color:var(--hi)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ln)}.btn.sm{padding:6px 12px;font-size:.82rem}
+main{padding:28px 0 60px}
+.hero{padding:18px 0 8px}.hero p{color:var(--mu);font-size:1.1rem}
+.search{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:18px 0 14px}
+@media(max-width:620px){.search{grid-template-columns:1fr}}
+input,select,textarea{width:100%;padding:11px 12px;font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:8px}
+textarea{min-height:90px;resize:vertical}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:6px 14px;font:600 .88rem inherit;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:12px;overflow:hidden;text-decoration:none;display:block}
+.card:hover{border-color:var(--br)}
+.card.d{border:2px solid var(--hl)}
+.th{height:120px;display:grid;place-items:center;font-size:3rem;position:relative}
+.bd{position:absolute;top:8px;left:8px;background:var(--hl);color:var(--hi);font:700 .72rem Sora,sans-serif;padding:3px 8px;border-radius:6px}
+.cb{padding:12px 14px}.cb h3{margin:0 0 4px;font-size:.98rem}
+.pr{font:800 1.1rem Sora,sans-serif}.mu{color:var(--mu);font-size:.88rem}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:22px}
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:start}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:14px}label>*{margin-top:5px;font-weight:400}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sum div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--ln)}
+.sum .t{font:800 1.2rem Sora,sans-serif;border:0}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--ln);vertical-align:middle}
+th{color:var(--mu);font-weight:600}
+.tw{overflow-x:auto}
+.b{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid currentColor}
+.b.activa{color:var(--ok)}.b.pendiente{color:var(--wn)}.b.vencida,.b.rechazada{color:var(--er)}.b.pausada{color:var(--mu)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:620px){.stats{grid-template-columns:1fr}}
+.stats .box b{display:block;font:800 1.8rem Sora,sans-serif}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+dialog{border:1px solid var(--ln);border-radius:14px;background:var(--sf);color:var(--ink);padding:24px;width:min(420px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.pay{display:flex;gap:10px;align-items:center;border:1px solid var(--ln);border-radius:8px;padding:10px;margin-bottom:8px;font-weight:600;cursor:pointer}
+.pay input{width:auto;margin:0}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:8px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+#toast.on{opacity:1}
+.note{font-size:.85rem;color:var(--mu);margin-top:30px;text-align:center}
+
+/* ===================================================== */
+/* ===== TEMA MODERNO: fondo aurora, vidrio y degradados ===== */
+/* ===================================================== */
+:root{
+  --g1:#5b4bff; --g2:#b14bff; --g3:#ff5fa2;
+  --gl:rgba(255,255,255,.72); --gb:rgba(255,255,255,.7);
+  --sh:0 12px 32px -14px rgba(48,34,140,.35);
+  --a1:rgba(91,75,255,.28); --a2:rgba(255,95,162,.22); --a3:rgba(34,211,238,.22);
+}
+@media(prefers-color-scheme:dark){
+  :root{--gl:rgba(23,27,38,.62); --gb:rgba(255,255,255,.09); --sh:0 14px 36px -14px rgba(0,0,0,.7);
+        --a1:rgba(110,92,255,.35); --a2:rgba(255,95,162,.22); --a3:rgba(34,211,238,.18)}
+}
+
+/* Fondo: aurora de colores que se mueve despacio + puntos sutiles */
+body{position:relative;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 50% at 8% 0%,var(--a1),transparent 70%),
+    radial-gradient(55% 45% at 95% 10%,var(--a2),transparent 70%),
+    radial-gradient(60% 50% at 50% 105%,var(--a3),transparent 70%);
+  background-size:140% 140%;animation:aurora 22s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(var(--ln) 1px,transparent 1.2px);background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 75%);mask-image:linear-gradient(to bottom,#000,transparent 75%);opacity:.7}
+@keyframes aurora{from{background-position:0% 0%}to{background-position:100% 100%}}
+
+/* Barra superior de vidrio */
+header{background:var(--gl);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid var(--gb)}
+.logo{background:linear-gradient(90deg,var(--g1),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:1.3rem}
+
+/* Banner principal */
+.hero{position:relative;overflow:hidden;margin-bottom:28px;color:#fff;border-radius:28px;
+  padding:clamp(26px,5vw,52px);
+  background:linear-gradient(125deg,#3427d6 0%,#7a3fe4 48%,#e8479a 100%);
+  box-shadow:0 24px 50px -22px rgba(91,60,220,.7)}
+.hero::before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.35),transparent 65%);pointer-events:none}
+.hero::after{content:"";position:absolute;width:300px;height:300px;left:-90px;bottom:-150px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,211,238,.45),transparent 65%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:clamp(2.1rem,5.6vw,3.6rem);letter-spacing:-.02em;max-width:16ch}
+.hero p{color:rgba(255,255,255,.88);max-width:46ch}
+.hero input,.hero select{background:rgba(255,255,255,.96);color:#101828;border:0;border-radius:14px;padding:15px 16px;box-shadow:0 8px 20px -10px rgba(0,0,0,.4)}
+.hero .chip{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.hero .chip:hover{background:rgba(255,255,255,.28)}
+.hero .chip.on{background:#fff;color:#2c1f9e;border-color:#fff}
+.hero .chips{margin:0}
+
+/* Tarjetas y cajas de vidrio */
+.box,.card,dialog{background:var(--gl);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border:1px solid var(--gb);border-radius:20px;box-shadow:var(--sh)}
+.card{transition:transform .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-5px);box-shadow:0 22px 40px -16px rgba(91,75,255,.45);border-color:var(--gb)}
+.card.d{border:2px solid transparent;
+  background:linear-gradient(var(--sf),var(--sf)) padding-box,linear-gradient(135deg,#ffd23f,#ff5fa2 55%,#7a3fe4) border-box}
+.th{height:132px}
+.bd{background:linear-gradient(135deg,#ffd23f,#ffa63f);box-shadow:0 4px 10px -4px rgba(255,160,0,.7)}
+.cb{padding:14px 16px 16px}
+.pr{background:linear-gradient(90deg,var(--g1),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pr[style]{font-size:1.8rem}
+#cnt{margin:6px 0 16px}
+
+/* Botones con degradado */
+.btn{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-radius:12px;
+  box-shadow:0 8px 18px -8px rgba(91,75,255,.7);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 22px -8px rgba(91,75,255,.8)}
+.btn.hl{background:linear-gradient(135deg,#ffd23f,#ffa63f);color:#2b2100;box-shadow:0 8px 18px -8px rgba(255,160,0,.7)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:none;border-color:var(--gb)}
+.btn.ghost:hover{background:var(--gl)}
+
+/* Campos de formulario y chips fuera del banner */
+input,select,textarea{border-radius:12px;background:var(--sf)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--g1);border-color:transparent}
+.chip{backdrop-filter:blur(6px)}
+
+/* Panel admin y tablas */
+.stats .box{background:linear-gradient(135deg,var(--gl),var(--gl)) padding-box;position:relative;overflow:hidden}
+.stats .box::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle,var(--a1),transparent 70%)}
+.stats .box b{background:linear-gradient(90deg,var(--g1),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+tr:hover td{background:rgba(120,110,255,.06)}
+dialog::backdrop{background:rgba(10,8,40,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.pay:has(input:checked){border-color:var(--g1);background:rgba(91,75,255,.1)}
+#toast{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-radius:12px}
+
+@media(prefers-reduced-motion:reduce){
+  body::before{animation:none}
+  .card,.btn{transition:none}.card:hover,.btn:hover{transform:none}
+}
+
+/* ===================================================== */
+/* ===== TEMA TURQUESA OSCURO (siempre activo) ===== */
+/* Para volver al modo claro/oscuro automático, borra este bloque. */
+/* Para un oscuro neutro (sin turquesa) cambia: --bg:#0b0d12; --sf:#151922; --ln:#262c3a; --g1:#5b4bff; --g2:#b14bff; --g3:#ff5fa2 */
+/* ===================================================== */
+:root{
+  color-scheme:dark;
+  --bg:#041a1e; --sf:#0a2a30; --ink:#e6fbf9; --mu:#8fb8b8; --ln:#16424a;
+  --br:#2dd4bf; --bi:#022a27; --hl:#ffd23f; --hi:#2b2100;
+  --ok:#4ade80; --wn:#fbbf24; --er:#ff7a6e;
+  --g1:#14b8a6; --g2:#06b6d4; --g3:#67e8f9;
+  --gl:rgba(8,38,44,.62); --gb:rgba(94,234,212,.14);
+  --sh:0 14px 36px -14px rgba(0,0,0,.75);
+  --a1:rgba(20,184,166,.32); --a2:rgba(6,182,212,.24); --a3:rgba(16,185,129,.20);
+}
+.hero{background:linear-gradient(125deg,#064e4b 0%,#0e7c86 50%,#0891b2 100%);box-shadow:0 24px 50px -22px rgba(6,182,212,.55)}
+.hero::after{background:radial-gradient(circle,rgba(110,231,183,.45),transparent 65%)}
+.hero .chip.on{color:#064e4b}
+.card:hover{box-shadow:0 22px 40px -16px rgba(20,184,166,.5)}
+.card.d{background:linear-gradient(var(--sf),var(--sf)) padding-box,linear-gradient(135deg,#ffd23f,#2dd4bf) border-box}
+.btn{color:#031f22;box-shadow:0 8px 18px -8px rgba(20,184,166,.7)}
+.btn:hover{box-shadow:0 12px 22px -8px rgba(20,184,166,.85)}
+.btn.hl{color:#2b2100}
+.btn.ghost{color:var(--ink)}
+#toast{color:#031f22}
+.pay:has(input:checked){border-color:var(--g1);background:rgba(20,184,166,.15)}
+tr:hover td{background:rgba(45,212,191,.07)}
+dialog::backdrop{background:rgba(1,12,14,.65)}
+
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="#/">[Tu Marketplace]</a>
+  <nav><a href="#/" id="n-home">Inicio</a><a href="#/mis" id="n-mis">Mis publicaciones</a><a href="#/admin" id="n-admin">Admin</a><a class="btn hl sm" href="#/publicar">Publicar</a></nav>
+</div></header>
+<main class="wrap" id="app"></main>
+<dialog id="dlg"></dialog>
+<div id="toast"></div>
+
+<script>
+/* ===== CONFIGURA AQUÍ ===== */
+const PRECIO = { pub: 3000, dest: 5000 };      // publicación adicional / destacado 7 días
+const CATS = ["Servicios","Productos","Vehículos","Propiedades","Empleos"];
+const COMS = ["Santiago","Providencia","Las Condes","Maipú","Puente Alto","Ñuñoa","Valparaíso","Concepción"];
+/* ========================== */
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clp = n => n ? "$" + Number(n).toLocaleString("es-CL") : "A convenir";
+const $ = id => document.getElementById(id);
+const hoy = () => new Date().toLocaleDateString("es-CL");
+const ICON = { Servicios:"🛠️", Productos:"🛍️", Vehículos:"🚗", Propiedades:"🏠", Empleos:"💼" };
+
+const mk = (id,t,cat,p,com,d,s,est,dest,mine,vence) => ({id,t,cat,p,com,d,s,wa:"56911112222",est,dest,mine,vence});
+const seed = () => ({
+  L: [
+    mk(1,"Instalaciones eléctricas y reparaciones","Servicios",25000,"Providencia","Electricista certificado SEC. Visita en 24 horas y presupuesto sin costo.","Carlos M.","activa",true,false,6),
+    mk(2,"Bicicleta aro 29, poco uso","Productos",180000,"Ñuñoa","Frenos hidráulicos, 21 cambios. Incluye casco y candado.","Andrea P.","activa",false,false,20),
+    mk(3,"Toyota Yaris 2018 automático","Vehículos",8900000,"Las Condes","Un dueño, mantenciones al día, 62.000 km.","Rodrigo S.","activa",true,false,5),
+    mk(4,"Departamento 2D1B cerca del metro","Propiedades",420000,"Santiago","Arriendo mensual, 55 m², estacionamiento y bodega.","Marcela V.","activa",false,false,12),
+    mk(5,"Maestro pintor para casas y oficinas","Servicios",null,"Maipú","Trabajo limpio y garantizado. Cotizamos por m².","Luis T.","activa",false,false,25),
+    mk(6,"Se busca vendedor/a part-time","Empleos",350000,"Puente Alto","Tienda de barrio, jornada de tarde. Enviar WhatsApp.","Tienda Don Pepe","activa",false,false,9),
+    mk(7,"Clases particulares de matemáticas","Servicios",15000,"Ñuñoa","Enseñanza media y preparación PAES. Online o presencial.","Tú","activa",false,true,18),
+    mk(8,"Notebook Lenovo i5, 16 GB RAM","Productos",320000,"Providencia","Funcionando perfecto, con cargador y funda.","Tú","vencida",false,true,0),
+    mk(9,"Cámara reflex con 2 lentes","Productos",250000,"Valparaíso","Ideal para comenzar en fotografía.","Sofía R.","pendiente",false,false,30)
+  ],
+  P: [
+    { id:1, concepto:"Publicación: Notebook Lenovo", monto:3000, fecha:"2 oct 2026", medio:"Webpay Plus" },
+    { id:2, concepto:"Destacado 7 días: Toyota Yaris", monto:5000, fecha:"4 oct 2026", medio:"Mercado Pago" }
+  ]
+});
+let S;
+try { S = JSON.parse(localStorage.getItem("mk-demo")) || seed(); } catch(e) { S = seed(); }
+const save = () => { try { localStorage.setItem("mk-demo", JSON.stringify(S)); } catch(e) {} };
+const toast = m => { const t = $("toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 2400); };
+const nextId = () => Math.max(0, ...S.L.map(x => x.id)) + 1;
+
+let F = { q:"", cat:"", com:"" };
+
+/* ---------- Inicio ---------- */
+function home() {
+  return `<section class="hero"><h1>Compra, vende y contrata cerca de ti</h1>
+  <p>Publica tu servicio o producto y llega a miles de personas de tu comuna.</p>
+  <div class="search"><input id="q" placeholder="¿Qué estás buscando?" value="${esc(F.q)}" oninput="setF()" aria-label="Buscar">
+  <select id="fm" onchange="setF()" aria-label="Comuna"><option value="">Todas las comunas</option>${COMS.map(c=>`<option ${F.com==c?"selected":""}>${c}</option>`).join("")}</select></div>
+  <div class="chips">${["",...CATS].map(c=>`<button class="chip ${F.cat==c?"on":""}" onclick="setCat('${c}')">${c||"Todo"}</button>`).join("")}</div></section>
+  <h2 id="cnt"></h2><div class="grid" id="grid"></div>`;
+}
+function setF(){ F.q = $("q").value; F.com = $("fm").value; grid(); }
+function setCat(c){ F.cat = c; go(); }
+function grid() {
+  const q = F.q.toLowerCase();
+  const r = S.L.filter(x => x.est=="activa" && (!F.cat||x.cat==F.cat) && (!F.com||x.com==F.com) && (!q||(x.t+" "+x.d).toLowerCase().includes(q)))
+    .sort((a,b) => b.dest - a.dest);
+  $("cnt").textContent = r.length + (r.length==1 ? " publicación" : " publicaciones");
+  $("grid").innerHTML = r.map(x => `<a class="card ${x.dest?"d":""}" href="#/p/${x.id}">
+    <div class="th" style="background:linear-gradient(135deg,hsl(${x.id*47%360} 85% 62% / .38),hsl(${(x.id*47+55)%360} 85% 62% / .12))">${ICON[x.cat]}${x.dest?'<span class="bd">Destacado</span>':""}</div>
+    <div class="cb"><h3>${esc(x.t)}</h3><div class="pr">${clp(x.p)}</div><div class="mu">${esc(x.com)} · ${esc(x.cat)}</div></div></a>`).join("")
+    || `<p class="mu">No hay resultados. Prueba con otra búsqueda.</p>`;
+}
+
+/* ---------- Detalle ---------- */
+function detail(id) {
+  const x = S.L.find(l => l.id == id);
+  if (!x) return `<p>Publicación no encontrada. <a href="#/">Volver al inicio</a></p>`;
+  const msg = encodeURIComponent("Hola, vi tu publicación \"" + x.t + "\" en [Tu Marketplace].");
+  return `<p><a href="#/">← Volver</a></p><div class="two"><div class="box">
+    <div class="th" style="border-radius:10px;margin-bottom:16px;height:200px;background:linear-gradient(135deg,hsl(${x.id*47%360} 85% 62% / .38),hsl(${(x.id*47+55)%360} 85% 62% / .12))">${ICON[x.cat]}${x.dest?'<span class="bd">Destacado</span>':""}</div>
+    <h1 style="font-size:1.7rem">${esc(x.t)}</h1><p class="mu">${esc(x.com)} · ${esc(x.cat)}</p><p>${esc(x.d)}</p></div>
+    <div class="box"><div class="pr" style="font-size:1.8rem">${clp(x.p)}</div><p class="mu">Publicado por ${esc(x.s)}</p>
+    <p><a class="btn" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${x.wa}?text=${msg}">Contactar por WhatsApp</a></p>
+    <p><button class="btn ghost sm" onclick="toast('Reporte enviado al equipo. Gracias.')">Reportar publicación</button></p>
+    <p class="mu" style="margin:0">Consejo: no pagues por adelantado sin conocer al vendedor.</p></div></div>`;
+}
+
+/* ---------- Publicar ---------- */
+const esNuevo = () => !S.L.some(x => x.mine);
+function publicar() {
+  return `<h1 style="font-size:2rem">Publicar</h1><div class="two"><form class="box" id="pf" onsubmit="return pub(event)">
+  <label>Título<input id="ft" required maxlength="70" placeholder="Ej: Clases de inglés online"></label>
+  <div class="row2"><label>Categoría<select id="fc">${CATS.map(c=>`<option>${c}</option>`).join("")}</select></label>
+  <label>Precio (CLP)<input id="fp" type="number" min="0" placeholder="Vacío = a convenir"></label></div>
+  <div class="row2"><label>Comuna<select id="fo">${COMS.map(c=>`<option>${c}</option>`).join("")}</select></label>
+  <label>WhatsApp<input id="fw" required placeholder="56912345678"></label></div>
+  <label>Descripción<textarea id="fd" required maxlength="500"></textarea></label>
+  <label style="display:flex;gap:10px;align-items:center;margin:0 0 18px"><input type="checkbox" id="fz" onchange="sum()" style="width:auto;margin:0"> Destacar 7 días (aparece arriba, con etiqueta) · ${clp(PRECIO.dest)}</label>
+  <button class="btn" id="fb" type="submit"></button></form>
+  <div class="box sum"><h3>Resumen</h3><div id="sm"></div>
+  <p class="mu" style="margin:12px 0 0">Tu publicación se revisa antes de aparecer. Dura 30 días${esNuevo()?" (15 la gratuita)":""}.</p></div></div>`;
+}
+const costo = () => ({ pub: esNuevo()?0:PRECIO.pub, dest: $("fz")&&$("fz").checked?PRECIO.dest:0 });
+function sum() {
+  const c = costo(), t = c.pub + c.dest;
+  $("sm").innerHTML = `<div><span>Publicación</span><span>${c.pub?clp(c.pub):"Gratis"}</span></div><div><span>Destacado</span><span>${c.dest?clp(c.dest):"-"}</span></div><div class="t"><span>Total</span><span>${t?clp(t):"$0"}</span></div>`;
+  $("fb").textContent = t ? "Pagar " + clp(t) + " y publicar" : "Publicar gratis";
+}
+function pub(e) {
+  e.preventDefault();
+  const c = costo(), t = c.pub + c.dest;
+  const data = { t:$("ft").value, cat:$("fc").value, p:Number($("fp").value)||null, com:$("fo").value, wa:$("fw").value.replace(/\D/g,""), d:$("fd").value, dest:!!c.dest, vence:esNuevo()?15:30 };
+  const crear = medio => {
+    S.L.push({ id:nextId(), s:"Tú", est:"pendiente", mine:true, ...data });
+    if (t) S.P.push({ id:S.P.length+1, concepto:"Publicación" + (c.dest?" + destacado":"") + ": " + data.t, monto:t, fecha:hoy(), medio });
+    save(); location.hash = "#/mis"; toast("Publicación enviada a revisión");
+  };
+  if (!t) crear(""); else checkout(t, [["Publicación", c.pub], ["Destacado 7 días", c.dest]], crear);
+  return false;
+}
+
+/* ---------- Pago (simulado) ---------- */
+function checkout(total, items, onPay) {
+  window._pay = onPay;
+  $("dlg").innerHTML = `<h2>Pagar ${clp(total)}</h2>
+    ${items.filter(i=>i[1]).map(i=>`<div class="mu" style="display:flex;justify-content:space-between"><span>${i[0]}</span><span>${clp(i[1])}</span></div>`).join("")}
+    <p style="margin-top:14px"><b>Medio de pago</b></p>
+    ${["Webpay Plus","Mercado Pago","Flow"].map((m,i)=>`<label class="pay"><input type="radio" name="mp" value="${m}" ${i?"":"checked"}> ${m}</label>`).join("")}
+    <p class="mu">Simulación: en la versión real aquí se abre la pasarela y no se cobra nada ahora.</p>
+    <div class="acts"><button class="btn" onclick="doPay()">Pagar (simulado)</button><button class="btn ghost" onclick="$('dlg').close()">Cancelar</button></div>`;
+  $("dlg").showModal();
+}
+function doPay(){ const m = document.querySelector("input[name=mp]:checked").value; $("dlg").close(); window._pay(m); }
+
+/* ---------- Mis publicaciones ---------- */
+function mis() {
+  const r = S.L.filter(x => x.mine);
+  return `<h1 style="font-size:2rem">Mis publicaciones</h1><div class="box tw">${r.length?`<table><tr><th>Publicación</th><th>Estado</th><th>Vence</th><th>Acciones</th></tr>
+  ${r.map(x=>`<tr><td><b>${esc(x.t)}</b>${x.dest?' <span class="b activa">Destacada</span>':""}<div class="mu">${clp(x.p)} · ${esc(x.com)}</div></td>
+  <td><span class="b ${x.est}">${x.est}</span></td><td>${x.est=="activa"?x.vence+" días":"-"}</td>
+  <td><div class="acts">${x.est=="activa"&&!x.dest?`<button class="btn hl sm" onclick="upDest(${x.id})">Destacar ${clp(PRECIO.dest)}</button>`:""}
+  ${x.est=="vencida"?`<button class="btn sm" onclick="renovar(${x.id})">Renovar ${clp(PRECIO.pub)}</button>`:""}
+  ${x.est=="activa"||x.est=="pausada"?`<button class="btn ghost sm" onclick="pausa(${x.id})">${x.est=="activa"?"Pausar":"Reactivar"}</button>`:""}</div></td></tr>`).join("")}</table>`:`<p>Aún no tienes publicaciones. <a href="#/publicar">Publica la primera gratis</a>.</p>`}</div>
+  <p style="margin-top:14px"><button class="btn ghost sm" onclick="nuevoUser()">Probar como usuario nuevo (primera gratis)</button> <button class="btn ghost sm" onclick="reset()">Reiniciar demo</button></p>`;
+}
+function upDest(id){ const x=S.L.find(l=>l.id==id); checkout(PRECIO.dest,[["Destacado 7 días",PRECIO.dest]],m=>{x.dest=true;S.P.push({id:S.P.length+1,concepto:"Destacado 7 días: "+x.t,monto:PRECIO.dest,fecha:hoy(),medio:m});save();go();toast("Publicación destacada");}); }
+function renovar(id){ const x=S.L.find(l=>l.id==id); checkout(PRECIO.pub,[["Renovación 30 días",PRECIO.pub]],m=>{x.est="pendiente";x.vence=30;S.P.push({id:S.P.length+1,concepto:"Renovación: "+x.t,monto:PRECIO.pub,fecha:hoy(),medio:m});save();go();toast("Renovada, en revisión");}); }
+function pausa(id){ const x=S.L.find(l=>l.id==id); x.est = x.est=="activa"?"pausada":"activa"; save(); go(); }
+function nuevoUser(){ S.L = S.L.filter(x=>!x.mine); save(); go(); toast("Ahora eres un usuario nuevo"); }
+function reset(){ S = seed(); save(); go(); toast("Demo reiniciada"); }
+
+/* ---------- Admin ---------- */
+function admin() {
+  const pend = S.L.filter(x=>x.est=="pendiente"), ing = S.P.reduce((a,p)=>a+p.monto,0);
+  return `<h1 style="font-size:2rem">Panel de administración</h1>
+  <div class="stats"><div class="box"><span class="mu">Ingresos</span><b>${clp(ing)||"$0"}</b></div>
+  <div class="box"><span class="mu">Publicaciones activas</span><b>${S.L.filter(x=>x.est=="activa").length}</b></div>
+  <div class="box"><span class="mu">Por aprobar</span><b>${pend.length}</b></div></div>
+  <div class="box" style="margin-bottom:20px"><h2>Por aprobar</h2>${pend.length?pend.map(x=>`<div style="display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--ln);flex-wrap:wrap">
+  <div><b>${esc(x.t)}</b><div class="mu">${esc(x.s)} · ${esc(x.cat)} · ${esc(x.com)}</div></div>
+  <div class="acts"><button class="btn sm" onclick="mod(${x.id},'activa')">Aprobar</button><button class="btn ghost sm" onclick="mod(${x.id},'rechazada')">Rechazar</button></div></div>`).join(""):`<p class="mu">Nada pendiente.</p>`}</div>
+  <div class="box tw"><h2>Pagos recibidos</h2><table><tr><th>Fecha</th><th>Concepto</th><th>Medio</th><th>Monto</th></tr>
+  ${S.P.slice().reverse().map(p=>`<tr><td>${esc(p.fecha)}</td><td>${esc(p.concepto)}</td><td>${esc(p.medio)}</td><td><b>${clp(p.monto)}</b></td></tr>`).join("")}</table></div>`;
+}
+function mod(id,e){ S.L.find(l=>l.id==id).est=e; save(); go(); toast(e=="activa"?"Publicación aprobada":"Publicación rechazada"); }
+
+/* ---------- Router ---------- */
+function go() {
+  const [r,a] = (location.hash||"#/").slice(2).split("/");
+  const v = { "":home, p:()=>detail(a), publicar, mis, admin }[r] || home;
+  $("app").innerHTML = v();
+  ["home","mis","admin"].forEach(n => $("n-"+n).classList.toggle("on", (n=="home"&&(r==""||r=="p")) || n==r));
+  if (r=="") grid(); if (r=="publicar") sum();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", go);
+go();
+
+</script>
+</body>
+</html>

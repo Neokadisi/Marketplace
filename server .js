@@ -25,6 +25,8 @@ const ADMIN_EMAIL = (E.ADMIN_EMAIL || "").trim().toLowerCase();
 if (SIM && E.NODE_ENV === "production") console.warn("AVISO: PAGO_MODO=simulado en producción. Cualquiera puede publicar sin pagar. Cambia a PAGO_MODO=flow.");
 
 const pool = new Pool({ connectionString: E.DATABASE_URL, ssl: E.DB_SSL === "true" ? { rejectUnauthorized: false } : false });
+// Todo el marketplace vive en su propio esquema "marketplace", separado de las tablas de tu tienda
+pool.on("connect", c => c.query("SET search_path TO marketplace"));
 const app = express();
 app.set("trust proxy", 1);
 app.use(express.json({ limit: "1mb" }));
@@ -264,6 +266,7 @@ app.use("/api", (req, res) => res.status(404).json({ error: "No encontrado" }));
 app.use((err, req, res, next) => { console.error(err); res.status(500).json({ error: "Error del servidor. Intenta de nuevo." }); });
 
 (async () => {
+  await pool.query("CREATE SCHEMA IF NOT EXISTS marketplace");
   await pool.query(fs.readFileSync(path.join(__dirname, "schema.sql"), "utf8"));
   setInterval(() => pool.query("UPDATE mk_publicaciones SET estado='vencida' WHERE estado='activa' AND vence<now()").catch(console.error), 3600e3);
   app.listen(PORT, () => console.log(`Marketplace en ${BASE} (pagos: ${SIM ? "simulados" : "Flow"})`));
