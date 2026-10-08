@@ -1,0 +1,186 @@
+/* Estilos del marketplace. Colores y modo oscuro se cambian en :root */
+:root{--bg:#f4f5f8;--sf:#fff;--ink:#101828;--mu:#566074;--ln:#dde1ea;--br:#3b36d9;--bi:#fff;--hl:#ffd23f;--hi:#2b2100;--ok:#14804a;--wn:#a15c00;--er:#b42318}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1118;--sf:#171b26;--ink:#eef0f6;--mu:#9aa3b8;--ln:#2a3042;--br:#8f8bff;--bi:#10102b;--ok:#4cd68c;--wn:#ffb84d;--er:#ff7a6e}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 "Public Sans","Segoe UI",system-ui,sans-serif}
+h1,h2,h3{font-family:Sora,"Segoe UI",system-ui,sans-serif;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800}h2{font-size:1.4rem}h3{font-size:1.05rem}
+a{color:inherit}p{margin:0 0 1em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+header{background:var(--sf);border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;gap:18px;height:58px}
+.logo{font:800 1.2rem Sora,sans-serif;text-decoration:none;color:var(--br);margin-right:auto}
+nav a{text-decoration:none;color:var(--mu);font-weight:600;margin-left:14px;font-size:.95rem}
+nav a.on,nav a:hover{color:var(--ink)}
+@media(max-width:620px){nav a:not(.btn){display:none}}
+.btn{display:inline-block;border:0;border-radius:8px;padding:10px 18px;font:700 .95rem Sora,sans-serif;background:var(--br);color:var(--bi);cursor:pointer;text-decoration:none}
+.btn.hl{background:var(--hl);color:var(--hi)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ln)}.btn.sm{padding:6px 12px;font-size:.82rem}
+main{padding:28px 0 60px}
+.hero{padding:18px 0 8px}.hero p{color:var(--mu);font-size:1.1rem}
+.search{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:18px 0 14px}
+@media(max-width:620px){.search{grid-template-columns:1fr}}
+input,select,textarea{width:100%;padding:11px 12px;font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:8px}
+textarea{min-height:90px;resize:vertical}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:6px 14px;font:600 .88rem inherit;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:12px;overflow:hidden;text-decoration:none;display:block}
+.card:hover{border-color:var(--br)}
+.card.d{border:2px solid var(--hl)}
+.th{height:120px;display:grid;place-items:center;font-size:3rem;position:relative}
+.bd{position:absolute;top:8px;left:8px;background:var(--hl);color:var(--hi);font:700 .72rem Sora,sans-serif;padding:3px 8px;border-radius:6px}
+.cb{padding:12px 14px}.cb h3{margin:0 0 4px;font-size:.98rem}
+.pr{font:800 1.1rem Sora,sans-serif}.mu{color:var(--mu);font-size:.88rem}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:22px}
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:start}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:14px}label>*{margin-top:5px;font-weight:400}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sum div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--ln)}
+.sum .t{font:800 1.2rem Sora,sans-serif;border:0}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--ln);vertical-align:middle}
+th{color:var(--mu);font-weight:600}
+.tw{overflow-x:auto}
+.b{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid currentColor}
+.b.activa{color:var(--ok)}.b.pendiente{color:var(--wn)}.b.vencida,.b.rechazada{color:var(--er)}.b.pausada{color:var(--mu)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:620px){.stats{grid-template-columns:1fr}}
+.stats .box b{display:block;font:800 1.8rem Sora,sans-serif}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+dialog{border:1px solid var(--ln);border-radius:14px;background:var(--sf);color:var(--ink);padding:24px;width:min(420px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.pay{display:flex;gap:10px;align-items:center;border:1px solid var(--ln);border-radius:8px;padding:10px;margin-bottom:8px;font-weight:600;cursor:pointer}
+.pay input{width:auto;margin:0}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:8px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+#toast.on{opacity:1}
+.note{font-size:.85rem;color:var(--mu);margin-top:30px;text-align:center}
+
+/* ===================================================== */
+/* ===== TEMA MODERNO: fondo aurora, vidrio y degradados ===== */
+/* ===================================================== */
+:root{
+  --g1:#5b4bff; --g2:#b14bff; --g3:#ff5fa2;
+  --gl:rgba(255,255,255,.72); --gb:rgba(255,255,255,.7);
+  --sh:0 12px 32px -14px rgba(48,34,140,.35);
+  --a1:rgba(91,75,255,.28); --a2:rgba(255,95,162,.22); --a3:rgba(34,211,238,.22);
+}
+@media(prefers-color-scheme:dark){
+  :root{--gl:rgba(23,27,38,.62); --gb:rgba(255,255,255,.09); --sh:0 14px 36px -14px rgba(0,0,0,.7);
+        --a1:rgba(110,92,255,.35); --a2:rgba(255,95,162,.22); --a3:rgba(34,211,238,.18)}
+}
+
+/* Fondo: aurora de colores que se mueve despacio + puntos sutiles */
+body{position:relative;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 50% at 8% 0%,var(--a1),transparent 70%),
+    radial-gradient(55% 45% at 95% 10%,var(--a2),transparent 70%),
+    radial-gradient(60% 50% at 50% 105%,var(--a3),transparent 70%);
+  background-size:140% 140%;animation:aurora 22s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(var(--ln) 1px,transparent 1.2px);background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 75%);mask-image:linear-gradient(to bottom,#000,transparent 75%);opacity:.7}
+@keyframes aurora{from{background-position:0% 0%}to{background-position:100% 100%}}
+
+/* Barra superior de vidrio */
+header{background:var(--gl);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid var(--gb)}
+.logo{background:linear-gradient(90deg,var(--g1),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:1.3rem}
+
+/* Banner principal */
+.hero{position:relative;overflow:hidden;margin-bottom:28px;color:#fff;border-radius:28px;
+  padding:clamp(26px,5vw,52px);
+  background:linear-gradient(125deg,#3427d6 0%,#7a3fe4 48%,#e8479a 100%);
+  box-shadow:0 24px 50px -22px rgba(91,60,220,.7)}
+.hero::before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.35),transparent 65%);pointer-events:none}
+.hero::after{content:"";position:absolute;width:300px;height:300px;left:-90px;bottom:-150px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,211,238,.45),transparent 65%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:clamp(2.1rem,5.6vw,3.6rem);letter-spacing:-.02em;max-width:16ch}
+.hero p{color:rgba(255,255,255,.88);max-width:46ch}
+.hero input,.hero select{background:rgba(255,255,255,.96);color:#101828;border:0;border-radius:14px;padding:15px 16px;box-shadow:0 8px 20px -10px rgba(0,0,0,.4)}
+.hero .chip{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.hero .chip:hover{background:rgba(255,255,255,.28)}
+.hero .chip.on{background:#fff;color:#2c1f9e;border-color:#fff}
+.hero .chips{margin:0}
+
+/* Tarjetas y cajas de vidrio */
+.box,.card,dialog{background:var(--gl);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border:1px solid var(--gb);border-radius:20px;box-shadow:var(--sh)}
+.card{transition:transform .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-5px);box-shadow:0 22px 40px -16px rgba(91,75,255,.45);border-color:var(--gb)}
+.card.d{border:2px solid transparent;
+  background:linear-gradient(var(--sf),var(--sf)) padding-box,linear-gradient(135deg,#ffd23f,#ff5fa2 55%,#7a3fe4) border-box}
+.th{height:132px}
+.bd{background:linear-gradient(135deg,#ffd23f,#ffa63f);box-shadow:0 4px 10px -4px rgba(255,160,0,.7)}
+.cb{padding:14px 16px 16px}
+.pr{background:linear-gradient(90deg,var(--g1),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pr[style]{font-size:1.8rem}
+#cnt{margin:6px 0 16px}
+
+/* Botones con degradado */
+.btn{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-radius:12px;
+  box-shadow:0 8px 18px -8px rgba(91,75,255,.7);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 22px -8px rgba(91,75,255,.8)}
+.btn.hl{background:linear-gradient(135deg,#ffd23f,#ffa63f);color:#2b2100;box-shadow:0 8px 18px -8px rgba(255,160,0,.7)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:none;border-color:var(--gb)}
+.btn.ghost:hover{background:var(--gl)}
+
+/* Campos de formulario y chips fuera del banner */
+input,select,textarea{border-radius:12px;background:var(--sf)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--g1);border-color:transparent}
+.chip{backdrop-filter:blur(6px)}
+
+/* Panel admin y tablas */
+.stats .box{background:linear-gradient(135deg,var(--gl),var(--gl)) padding-box;position:relative;overflow:hidden}
+.stats .box::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle,var(--a1),transparent 70%)}
+.stats .box b{background:linear-gradient(90deg,var(--g1),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+tr:hover td{background:rgba(120,110,255,.06)}
+dialog::backdrop{background:rgba(10,8,40,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.pay:has(input:checked){border-color:var(--g1);background:rgba(91,75,255,.1)}
+#toast{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border-radius:12px}
+
+@media(prefers-reduced-motion:reduce){
+  body::before{animation:none}
+  .card,.btn{transition:none}.card:hover,.btn:hover{transform:none}
+}
+
+/* ===================================================== */
+/* ===== TEMA TURQUESA OSCURO (siempre activo) ===== */
+/* Para volver al modo claro/oscuro automático, borra este bloque. */
+/* Para un oscuro neutro (sin turquesa) cambia: --bg:#0b0d12; --sf:#151922; --ln:#262c3a; --g1:#5b4bff; --g2:#b14bff; --g3:#ff5fa2 */
+/* ===================================================== */
+:root{
+  color-scheme:dark;
+  --bg:#041a1e; --sf:#0a2a30; --ink:#e6fbf9; --mu:#8fb8b8; --ln:#16424a;
+  --br:#2dd4bf; --bi:#022a27; --hl:#ffd23f; --hi:#2b2100;
+  --ok:#4ade80; --wn:#fbbf24; --er:#ff7a6e;
+  --g1:#14b8a6; --g2:#06b6d4; --g3:#67e8f9;
+  --gl:rgba(8,38,44,.62); --gb:rgba(94,234,212,.14);
+  --sh:0 14px 36px -14px rgba(0,0,0,.75);
+  --a1:rgba(20,184,166,.32); --a2:rgba(6,182,212,.24); --a3:rgba(16,185,129,.20);
+}
+.hero{background:linear-gradient(125deg,#064e4b 0%,#0e7c86 50%,#0891b2 100%);box-shadow:0 24px 50px -22px rgba(6,182,212,.55)}
+.hero::after{background:radial-gradient(circle,rgba(110,231,183,.45),transparent 65%)}
+.hero .chip.on{color:#064e4b}
+.card:hover{box-shadow:0 22px 40px -16px rgba(20,184,166,.5)}
+.card.d{background:linear-gradient(var(--sf),var(--sf)) padding-box,linear-gradient(135deg,#ffd23f,#2dd4bf) border-box}
+.btn{color:#031f22;box-shadow:0 8px 18px -8px rgba(20,184,166,.7)}
+.btn:hover{box-shadow:0 12px 22px -8px rgba(20,184,166,.85)}
+.btn.hl{color:#2b2100}
+.btn.ghost{color:var(--ink)}
+#toast{color:#031f22}
+.pay:has(input:checked){border-color:var(--g1);background:rgba(20,184,166,.15)}
+tr:hover td{background:rgba(45,212,191,.07)}
+dialog::backdrop{background:rgba(1,12,14,.65)}
+
+/* ===== Fotos reales, formularios y detalles de la versión conectada ===== */
+.th{overflow:hidden}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bd{z-index:1}
+.err{color:var(--er);font-weight:600;margin:0 0 12px}
+a.lnk{color:var(--g3);font-weight:600}
